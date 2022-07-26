@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicio 2</title>
+    <link rel="stylesheet" href="bootstrap.css">
+
+    <style>
+        form.form{
+            width: 80%;
+            height: 60%;
+            margin-left: 100px;
+        }
+        input.data{
+            width: 480px;
+            height: 20px;
+            border-radius: 5px;	
+        }
+		input.button{
+			height: 30px;
+			width: 180px;
+			border-radius: 8px;
+		}
+    </style>
+</head>
+<body>
+    <form class="form">
+        <table>
+                <tr>
+                    <td colspan = "2">
+                        <h1> Calcular Media com JavaScript</h1>
+                        
+                        </br></br>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td>Nome do estudante:</td>
+                    <td><input type="text"  id="nome" class="data" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>Nome da disciplina:</td>
+                    <td>
+                        <select name="disciplinas" class="data" id="disc">
+                            <option value="js">JavaScript</option>
+                            <option value="jv">Java</option>
+                            <option value="ht">Html</Html></option>
+                            <option value="cs">Css</option>
+            
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nota da AS 1:</td>
+                    <td><input type="text" id="as1" class="data" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>Nota da AS 2:</td>
+                    <td><input type="text" id="as2" class="data"></td>
+                </tr>
+                <tr>
+                    <td>Nota da AS 3:</td>
+                    <td><input type="text" id="as3" class="data"></td>
+                </tr>
+                <tr>
+                    <td>Nota da Ap 1:</td>
+                    <td><input type="text" id="ap1" class="data"></td>
+                </tr>
+                <tr>
+                    <td>Nota da Ap 2:</td>
+                    <td><input type="text" id="ap2" class="data"></td>
+                </tr>
+                <tr>
+                    <td>Nota do trabalho prático:</td>
+                    <td><input type="text" id="trabalho" class="data"></td>
+                </tr><br>
+                <tr>
+                    <td colspan = "2"><p style="text-align: center">
+                        <button type="button" class="btn btn-outline-primary" onclick="calcular()">
+                            Ver Situação estudante</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Média das As's:</td>
+                    <td><input type="number" id="resultAs" class="data" disabled></td>
+                </tr>
+                <tr>
+                    <td>Média da Ap's:</td>
+                    <td><input type="number" id="resultAp" class="data" disabled></td>
+                </tr>
+                <tr>
+                    <td>Media do semestre:</td>
+                    <td><input type="number" id="resultSem" class="data" disabled></td>
+                </tr>
+                <tr>
+                    <td>Resultado final:</td>
+                    <td><input type="text" disabled id="result" class="data" ></td>
+                </tr>
+                
+        </table>
+        <script>
+            tudoOk = true;
+            function validar(numero){
+                try{
+                    if(numero == "") throw 'O campo nao deve estar vazio';
+                    if(isNaN(numero)) throw 'O campo deve ser preenchido apenas com numeros';
+                    numero = Number(numero);
+                    if(numero < 0 || numero > 20) throw 'O campo deve ser preenchido com numeros entre 0 e 20';
+                    return numero;    
+                }catch(erro){
+                    alert("Erro: "+erro);
+                    tudoOk = false;
+                }
+                
+            }
+            function calcular(){
+                notaAs1 = validar(document.getElementById("as1").value);
+                notaAs2 = validar(document.getElementById("as2").value);
+                notaAs3 = validar(document.getElementById("as3").value);
+                notaAp1 = validar(document.getElementById("ap1").value);
+                notaAp2 = validar(document.getElementById("ap2").value);
+                trabalho = validar(document.getElementById("trabalho").value);
+                finalresult = document.getElementById("result");
+                mediaAs = document.getElementById("resultAs");
+                mediaAp = document.getElementById("resultAp");
+                mediaSem = document.getElementById("resultSem");
+                
+                if(tudoOk){
+                    media1 = (notaAs1 + notaAs2 + notaAs3)/3;
+                    media2 = (notaAp1 + notaAp2)/2;
+                    media3 = (media1*30/100) + (media2*50/100) + (trabalho*20/100);
+                    mediaAs.value = media1;
+                    mediaAp.value = media2;
+                    mediaSem.value = media3;
+                    if(media3 < 10) finalresult.value = "Excluido";
+                    if(media3 >= 10 && media3 < 14) finalresult.value = "Admitido";
+                    if(media3 >= 14) finalresult.value = "Dispensado";
+                }
+            }
+        </script>
+</body>
+</html>
